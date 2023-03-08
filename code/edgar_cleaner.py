@@ -26,7 +26,7 @@ def write_clean_html_text_files(input_folder, dest_folder):
         input_file_path = os.path.join(input_folder, filename)
         new_name = filename.split('.')
         
-        with open(input_file_path, 'r') as f:
+        with open(input_file_path,'r' ,encoding="utf8") as f:
             html_text = f.read()
             cleaned_text = clean_html_text(html_text)
             
