@@ -20,7 +20,6 @@ def write_page(url, file_path):
         driver.find_element("xpath", xpath_button_click).click()
         correct_url =  driver.find_element("xpath", xpath_convert_to_html).get_attribute('href')
         
-        print(correct_url)
         driver.quit()
         driver = webdriver.Chrome()
         driver.get(correct_url)
