@@ -34,11 +34,13 @@ def get_yahoo_data(start_date,end_date,tickers):
         prices.drop(columns = ['date','adjclose','open','close'],inplace=True)
         return prices
 
+
+#part 3c
+df1 = pd.read_csv('LM-dictionary-2021.csv')
+sentiment_words = ['Negative', 'Positive', 'Uncertainty', 'Litigious', 'Strong_Modal', 'Weak_Modal', 'Constraining']
+
 def get_sentiment_word_dict():
-    df1 = pd.read_csv('LM-dictionary-2021.csv')
     sentiment_dict = {}
-    sentiment_words = ['Negative', 'Positive', 'Uncertainty', 'Litigious', 'Strong_Modal', 'Weak_Modal', 'Constraining']
-    
     for n in sentiment_words:
         sentiment_dict[n] = []
         for i in range(0, len(df1.index)):
@@ -46,3 +48,5 @@ def get_sentiment_word_dict():
                 sentiment_dict[n].append(df1.loc[i, 'Word'])
 
     return sentiment_dict
+
+get_sentiment_word_dict()['Positive']
