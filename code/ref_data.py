@@ -10,21 +10,45 @@ def get_sp100():
 
 
 
-def get_yahoo_data(start_date,end_date,ticker):
+def get_yahoo_data(start_date,end_date,tickers,freq):
+    list_comps = []
+    skipped = []
+    for ticker in tickers:
+        try:
+            data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, freq)
+            prices = pd.DataFrame(data[ticker]['prices'])
+            prices['1daily_return'] = (prices['close'].shift(-1) - prices['close'])/prices['close']
+            prices['2daily_return'] = (prices['close'].shift(-2) - prices['close'])/prices['close']
+            prices['3daily_return'] = (prices['close'].shift(-3) - prices['close'])/prices['close']
+            prices['5daily_return'] = (prices['close'].shift(-5) - prices['close'])/prices['close']
+            prices['10daily_return'] = (prices['close'].shift(-10) - prices['close'])/prices['close']
+            prices['Symbol'] = ticker
+            prices.drop(columns = ['date','open','close'],inplace=True)
+            prices.set_index('formatted_date',inplace=True)
+            prices.rename(columns={'adjclose':'price','formatted_date':'date'},inplace=True)    
+            list_comps.append(prices)
+        except:
+            skipped = skipped.append(ticker)
+            print(ticker)
 
-        data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, 'daily')
-        prices = pd.DataFrame(data[ticker]['prices'])
-        prices['1daily_return'] = (prices['close'].shift(-1) - prices['close'])/prices['close']
-        prices['2daily_return'] = (prices['close'].shift(-2) - prices['close'])/prices['close']
-        prices['3daily_return'] = (prices['close'].shift(-3) - prices['close'])/prices['close']
-        prices['5daily_return'] = (prices['close'].shift(-5) - prices['close'])/prices['close']
-        prices['10daily_return'] = (prices['close'].shift(-10) - prices['close'])/prices['close']
-        prices['Symbol'] = ticker
-        prices.drop(columns = ['date','open','close'],inplace=True)
-        prices.set_index('formatted_date',inplace=True)
-        prices.rename(columns={'adjclose':'price','formatted_date':'date'},inplace=True)
-        return prices
 
+    final_df=pd.concat(list_comps)   
+    print(skipped)
+    return final_df
+
+# import pandas as pd
+# import ref_data as rf
+
+# tickers=rf.get_sp100()
+# list=[]
+# for i in tickers:
+#     try:
+#         list.append(rf.get_yahoo_data('2012-01-01','2020-08-01',i))
+#     except:
+#         continue
+    
+# final_df=pd.concat(list)
+# final_df
 
 #part 3c
 df1 = pd.read_csv('../data/LM-dictionary-2021.csv')
@@ -40,17 +64,3 @@ def get_sentiment_word_dict():
 
     return sentiment_dict
 
-
-# import pandas as pd
-# import ref_data as rf
-
-# tickers=rf.get_sp100()
-# list=[]
-# for i in tickers:
-#     try:
-#         list.append(rf.get_yahoo_data('2012-01-01','2020-08-01',i))
-#     except:
-#         continue
-    
-# final_df=pd.concat(list)
-# final_df
