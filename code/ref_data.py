@@ -29,3 +29,6 @@ def get_yahoo_data(start_date,end_date,tickers):
         prices['1daily_return'] = prices['open'] - prices['close'].shift(1)
         return prices
 
+
+df_returns = get_yahoo_data('2000-01-01', '2020-08-01', 'MMM')
+print(df_returns)
