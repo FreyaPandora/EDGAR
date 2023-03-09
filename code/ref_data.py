@@ -45,6 +45,6 @@ def get_sentiment_word_dict():
         sentiment_dict[n] = []
         for i in range(0, len(df1.index)):
             if df1.loc[i, n] != 0:
-                sentiment_dict[n].append(df1.loc[i, 'Word'])
+                sentiment_dict[n].append(df1.loc[i, 'Word'].lower())
 
     return sentiment_dict
