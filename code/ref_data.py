@@ -48,5 +48,3 @@ def get_sentiment_word_dict():
                 sentiment_dict[n].append(df1.loc[i, 'Word'])
 
     return sentiment_dict
-
-get_sentiment_word_dict()['Positive']
