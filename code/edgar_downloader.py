@@ -14,8 +14,8 @@ def write_page(url, file_path):
     driver.get(url)
     
     try:
-        xpath_convert_to_html = r'//*[@id="form-information-html"]'
-        xpath_button_click =r'//*[@id="menu-dropdown-link"]'
+        xpath_convert_to_html = r"//a[@id='form-information-html']"
+        xpath_button_click =r"//a[@id='menu-dropdown-link']"
         
         driver.find_element("xpath", xpath_button_click).click()
         correct_url =  driver.find_element("xpath", xpath_convert_to_html).get_attribute('href')
