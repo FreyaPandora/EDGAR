@@ -38,3 +38,16 @@ def get_yahoo_data(start_date,end_date,tickers):
 
 df_returns = get_yahoo_data('2000-01-01', '2020-08-01', 'MMM')
 print(df_returns)
+
+def get_sentiment_word_dict():
+    df1 = pd.read_csv('LM-dictionary-2021.csv')
+    sentiment_dict = {}
+    sentiment_words = ['Negative', 'Positive', 'Uncertainty', 'Litigious', 'Strong_Modal', 'Weak_Modal', 'Constraining']
+    
+    for n in sentiment_words:
+        sentiment_dict[n] = []
+        for i in range(0, len(df1.index)):
+            if df1.loc[i, n] != 0:
+                sentiment_dict[n].append(df1.loc[i, 'Word'])
+
+    return sentiment_dict
