@@ -26,6 +26,12 @@ def get_yahoo_data(start_date,end_date,tickers):
     for ticker in tickers:
         data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, 'daily')
         prices = pd.DataFrame(data[ticker]['prices'])
-        prices['1daily_return'] = prices['open'] - prices['close'].shift(1)
+        prices['1daily_return'] = (prices['open'] - prices['close'])/prices['open']
+        prices['2daily_return'] = (prices['open'].shift(1) - prices['close'])/prices['open'].shift(1)
+        prices['3daily_return'] = (prices['open'].shift(2) - prices['close'])/prices['open'].shift(2)
+        prices['5daily_return'] = (prices['open'].shift(4) - prices['close'])/prices['open'].shift(4)
+        prices['10daily_return'] = (prices['open'].shift(9) - prices['close'])/pr
+        ices['open'].shift(9)
+        prices.drop(columns = ['date','adjclose','open','close'],inplace=True)
         return prices
 
