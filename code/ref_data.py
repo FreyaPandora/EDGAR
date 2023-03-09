@@ -1,21 +1,11 @@
-
-import csv
 import pandas as pd
-import yahoofinancials
 from yahoofinancials import YahooFinancials
 
 
 
-csv_file = 'sp-100-index-03-07-2023.csv'
+csv_file = '../data/sp-100-index-03-07-2023.csv'
 def get_sp100():
-    # sp100 = []
-    # with open(csv_file,newline='\n'):
-    #     csv_reader = csv.reader(csv_file, delimiter=',')
-    #     for row in csv_reader:
-    #         sp100.append(row)
-    #     return df, sp100
     df =pd.read_csv(csv_file)
-    
     return list(df['Symbol'])
 
 
@@ -37,7 +27,7 @@ def get_yahoo_data(start_date,end_date,ticker):
 
 
 #part 3c
-df1 = pd.read_csv('LM-dictionary-2021.csv')
+df1 = pd.read_csv('../data/LM-dictionary-2021.csv')
 sentiment_words = ['Negative', 'Positive', 'Uncertainty', 'Litigious', 'Strong_Modal', 'Weak_Modal', 'Constraining']
 
 def get_sentiment_word_dict():
@@ -49,3 +39,18 @@ def get_sentiment_word_dict():
                 sentiment_dict[n].append(df1.loc[i, 'Word'].lower())
 
     return sentiment_dict
+
+
+# import pandas as pd
+# import ref_data as rf
+
+# tickers=rf.get_sp100()
+# list=[]
+# for i in tickers:
+#     try:
+#         list.append(rf.get_yahoo_data('2012-01-01','2020-08-01',i))
+#     except:
+#         continue
+    
+# final_df=pd.concat(list)
+# final_df

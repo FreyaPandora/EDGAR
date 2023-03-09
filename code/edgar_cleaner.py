@@ -41,6 +41,9 @@ def write_clean_html_text_files(input_folder, dest_folder):
     and stores a text file in the destination directory.
     
     '''
+    if not os.path.exists(dest_folder):
+        os.makedirs(dest_folder)
+    
     for filename in os.listdir(input_folder):
         input_file_path = os.path.join(input_folder, filename)
         new_name = filename.split('.')
