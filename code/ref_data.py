@@ -20,10 +20,8 @@ def get_sp100():
 
 
 
-def get_yahoo_data(start_date,end_date,tickers):
+def get_yahoo_data(start_date,end_date,ticker):
 
-
-    for ticker in tickers:
         data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, 'daily')
         prices = pd.DataFrame(data[ticker]['prices'])
         prices['1daily_return'] = (prices['close'].shift(-1) - prices['close'])/prices['close']
