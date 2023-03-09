@@ -34,10 +34,6 @@ def get_yahoo_data(start_date,end_date,tickers):
         prices.drop(columns = ['date','adjclose','open','close'],inplace=True)
         return prices
 
-
-df_returns = get_yahoo_data('2000-01-01', '2020-08-01', 'MMM')
-print(df_returns)
-
 def get_sentiment_word_dict():
     df1 = pd.read_csv('LM-dictionary-2021.csv')
     sentiment_dict = {}
