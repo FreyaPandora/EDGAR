@@ -30,14 +30,9 @@ def get_yahoo_data(start_date,end_date,tickers):
         prices['2daily_return'] = (prices['open'].shift(1) - prices['close'])/prices['open'].shift(1)
         prices['3daily_return'] = (prices['open'].shift(2) - prices['close'])/prices['open'].shift(2)
         prices['5daily_return'] = (prices['open'].shift(4) - prices['close'])/prices['open'].shift(4)
-        prices['10daily_return'] = (prices['open'].shift(9) - prices['close'])/pr
-        ices['open'].shift(9)
+        prices['10daily_return'] = (prices['open'].shift(9) - prices['close'])/prices['open'].shift(9)
         prices.drop(columns = ['date','adjclose','open','close'],inplace=True)
         return prices
-
-
-df_returns = get_yahoo_data('2000-01-01', '2020-08-01', 'MMM')
-print(df_returns)
 
 def get_sentiment_word_dict():
     df1 = pd.read_csv('LM-dictionary-2021.csv')
