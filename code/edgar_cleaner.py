@@ -13,9 +13,9 @@ def clean_html_text(html_text):
     defined by regex and '+' refers to matching more than one non-words
     '''
 
-    user_agent = r'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
-    response = requests.get(html_text, headers={'User-Agent':user_agent})
-    soup = BeautifulSoup(response.content, 'html.parser')
+    # user_agent = r'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+    # response = requests.get('http://'+html_text, headers={'User-Agent':user_agent})
+    soup = BeautifulSoup(html_text, 'html.parser')
 
     if soup.find('document'):
         paragraphs = soup.find_all('p')
