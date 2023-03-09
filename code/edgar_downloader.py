@@ -9,7 +9,14 @@ from selenium.webdriver.common.keys import Keys
 
 
 def write_page(url, file_path):
-    """Takes in the URL and writes the html file to the path specified."""
+    """
+    Takes in the URL and writes the html file to the path specified.
+
+    Args:
+        url (str): URL of 10-K filing for a specific year and company.
+        file_path (str): file path to save the htmls
+    """
+    
     driver = webdriver.Chrome()
     driver.get(url)
     
