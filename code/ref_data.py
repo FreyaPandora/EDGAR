@@ -12,7 +12,6 @@ def get_sp100():
 
 def get_yahoo_data(start_date,end_date,tickers,freq):
     list_comps = []
-    skipped = []
     for ticker in tickers:
         try:
             data = YahooFinancials(ticker).get_historical_price_data(start_date, end_date, freq)
@@ -28,12 +27,11 @@ def get_yahoo_data(start_date,end_date,tickers,freq):
             prices.rename(columns={'adjclose':'price','formatted_date':'date'},inplace=True)    
             list_comps.append(prices)
         except:
-            skipped = skipped.append(ticker)
-            print(ticker)
+            continue
+
 
 
     final_df=pd.concat(list_comps)   
-    print(skipped)
     return final_df
 
 # import pandas as pd
