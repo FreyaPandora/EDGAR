@@ -1,9 +1,6 @@
 import pandas as pd
 from yahoofinancials import YahooFinancials
 
-
-
-
 def get_sp100():
     """_summary_
 
@@ -13,7 +10,6 @@ def get_sp100():
     csv_file = '../data/sp-100-index-03-07-2023.csv'
     df =pd.read_csv(csv_file)
     return list(df['Symbol'])
-
 
 
 def get_yahoo_data(start_date,end_date,tickers,freq):
