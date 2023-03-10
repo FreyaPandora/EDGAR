@@ -13,14 +13,18 @@ def write_page(url, file_path):
     Takes in the URL and writes the html file to the path specified.
 
     Args:
-        url (str): URL of 10-K filing for a specific year and company.
+        url (str): URL of 10-K filing for a specific year and company
         file_path (str): file path to save the htmls
     """
     
+    # Opens a Google Chrome to webscrape the data
     driver = webdriver.Chrome()
     driver.get(url)
     
+    # Since some websites use an updated java script check if the button to navigate
+    #       it exists.
     try:
+        # If the button exists, navigates the website using xpath to obtain html format.
         xpath_convert_to_html = r"//a[@id='form-information-html']"
         xpath_button_click =r"//a[@id='menu-dropdown-link']"
         
@@ -30,21 +34,29 @@ def write_page(url, file_path):
         driver.quit()
         driver = webdriver.Chrome()
         driver.get(correct_url)
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(driver.page_source)
-        driver.quit()
     except:
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(driver.page_source)
-        driver.quit()
-
+        # If the button does not exists do nothing 
+        pass
+    
+    # Saves the page source in the file path provided.
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(driver.page_source)
+    driver.quit()
+    
 def download_files_10k(ticker, dest_folder):
-    """Downloads all the html 10-k files for the given ticker into the destination folder."""
+    """
+    Downloads all the html 10-k files for the given ticker into the destination folder.
+
+    Args:
+        ticker (str): ticker of the company of interest
+        dest_folder (str): Folder to save all the html files
+    """
+    
     # Create the destination folder if it doesn't exist
     if not os.path.exists(dest_folder):
         os.makedirs(dest_folder)
 
-    # Construct the URL to search for the ticker's filings
+    # URL to search for ticker's filings
     url = r'https://www.sec.gov/edgar/searchedgar/companysearch'
 
     # Open the search page and enter the ticker in the search box
@@ -66,16 +78,16 @@ def download_files_10k(ticker, dest_folder):
     # Searches 10-K to only show the relevant filings
     xpath_search_10K = r'//*[@id="searchbox"]'
     driver.find_element("xpath", xpath_search_10K).send_keys('10-K',Keys.ENTER)
-
-    # Download each 10-K filing
     
-    # Download each 10-K filing
+    # Obtains xpath for the table containing the 10-K filings
     table_xpath = r'//*[@id="filingsTable"]'
     wait = WebDriverWait(driver, 1)
     wait.until(EC.presence_of_element_located((By.XPATH, table_xpath)))
     table = driver.find_element(By.XPATH, table_xpath)
     rows = table.find_elements(By.XPATH, './tbody/tr')
 
+    # For every row, obtain the html and use "write_page()" to save it in
+    #       the desired directory.
     counter = 1
     for row in rows:
         cells = row.find_elements(By.XPATH, './td')
