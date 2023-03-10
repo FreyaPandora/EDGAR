@@ -48,17 +48,6 @@ def clean_html_text(html_text):
     return result
 
 def write_clean_html_text_files(input_folder, dest_folder):
-    """
-    Function reads the files in the input folder and calls the 
-    clean_html_text function and stores a text file in the destination 
-    directory
-
-    Args:
-        input_folder (str): directory to obtain the html links
-        dest_folder (str): directory to save all the text documents.
-    """    
-    
-    # If the destination folder does not exists, it creates it
     if not os.path.exists(dest_folder):
         os.makedirs(dest_folder)
     
