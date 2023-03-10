@@ -55,6 +55,6 @@ def write_clean_html_text_files(input_folder, dest_folder):
         dest_filename = f'{new_name[0]}.txt' 
         dest_file_path = os.path.join(dest_folder, dest_filename)
     
-        os.remove(filename)
+        os.remove(input_file_path)
         with open(dest_file_path, 'w') as f:
             f.write(cleaned_text)
