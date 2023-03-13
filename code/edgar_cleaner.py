@@ -29,8 +29,8 @@ def clean_html_text(html_text):
     clean_text_tokenized = word_tokenize(cleaned_text)
     
     # Removes all the stopwords from the text
-    for i in stopword_list:
-        if i in clean_text_tokenized:
+    for i in clean_text_tokenized:
+        if i.strip() in stopword_list:
             clean_text_tokenized.remove(i)
     
     # Lemmatizes the text

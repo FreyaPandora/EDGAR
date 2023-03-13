@@ -39,9 +39,6 @@ negative_document = ' '.join(negative_list)
 positive_document = ' '.join(positive_list)
 
 
-
-
-
 wc = WordCloud(background_color='white',width=1800, height=1000, min_font_size=10,colormap='Reds',relative_scaling=0.0001, collocations=False).generate(negative_document)
 fig, ax = plt.subplots(figsize=(8,6))
 ax.imshow(wc)
